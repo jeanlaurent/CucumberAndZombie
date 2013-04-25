@@ -1,0 +1,6 @@
+0- launch keynote, move screen left
+1- in src/webshop run mvn jetty:run, adjust terminal on left
+2- launch Chrome on http://localhost:8080 
+3- open terminal in src/mix-it issue cp -r _init live, close terminal
+3- open terminal in src/mix-it/live, adjust terminal on left
+4- issue subl . in src/mix-it/live, adjust terminal on right
