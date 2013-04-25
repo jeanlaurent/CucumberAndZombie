@@ -1,24 +1,23 @@
-should = require('chai').should()
 
-stepDefinition = ->
+stepDefinitions = ->
+
 	@World = require('./support.coffee').World
 
 	@Given /^I'm on the homepage$/, (callback) ->
 		@browser.visit @home, callback
 
-	@When /^I order the product (.+)$/, (product, callback) ->
-		@browser.clickLink "##{product}", callback
+	@When /^I order a product$/, (callback) ->
+		@browser.clickLink '#mon-cahier-3', callback
 
-	@Then /^the product quantity (\d+) is shown in the basket$/, (number, callback) ->
-		@browser.text('#nb-article').should.have.string "#{number} article"
+	@Then /^the product quantity (\d+) is shown in the basket$/, (quantity, callback) ->
+		@browser.text('#nb-article').should.have.string "#{quantity} article"
 		callback()
 
 	@When /^I go to the basket page$/, (callback) ->
-	  @browser.visit "#{@home}/cart", callback
+		@browser.visit "#{@home}/cart", callback
 
-	@When /^I input (\d+) as quantity for (.+)$/, (quantity, product, callback) ->
-		@browser.fill ".changeAmount", quantity, callback
-		#@browser.fill "##{product}:nth-child(2)", quantity, callback
+	@When /^I input (\d+) as quantity for my product$/, (quantity, callback) ->
+		@browser.fill '.changeAmount', quantity, callback
 
 	@Then /^the basket price is now (.+)$/, (price, callback) ->
 		@browser.text('.prix_total').should.have.string price
@@ -28,7 +27,7 @@ stepDefinition = ->
 		@browser.visit "#{@home}/order.html", ->
 			callback()
 
-	@When /^I fill the form and validate$/, (callback) ->
+	@When /^I fill the form and validate it$/, (callback) ->
 		@browser.fill("prenom", "Headless")
 		@browser.fill("nom", "Zombie")
 		@browser.fill("email", "headlesszombie@morlhon.net")
@@ -42,8 +41,8 @@ stepDefinition = ->
 		@browser.pressButton "#validate", ->
 			callback()
 
-	@Then /^I can see my order has been fullfilled$/, (callback) ->
-		@browser.queryAll('h2')[0].textContent.should.be.equal "Merci !"
+	@Then /^I see my order has been fullfilled$/, (callback) ->
+		@browser.queryAll('h2')[0].textContent.should.have.string 'Merci !'
 		callback()
 
-module.exports = stepDefinition
+module.exports = stepDefinitions

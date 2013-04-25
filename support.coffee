@@ -1,4 +1,5 @@
 Browser = require('zombie')
+should = require('chai').should()
 
 World = (callback) ->
 	@browser = new Browser()
